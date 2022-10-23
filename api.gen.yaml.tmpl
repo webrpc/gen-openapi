@@ -27,7 +27,7 @@
 # Do not edit by hand. Update your webrpc schema and re-generate.
 openapi: 3.0.0
 info:
-  title: {{.Name}} API
+  title: {{(index .Services 0).Name}} API
   version: vTODO
 
 components:
@@ -40,11 +40,20 @@ components:
           type: string
     {{- range $i, $msg := .Messages}}
     {{.Name}}:
+      {{if eq (str .Type) "enum" -}}
+      type: string
+      {{if gt (len .Fields) 0}}description: Represented as {{(index .Fields 0).Type}} on the server side{{end}}
+      enum:
+        {{- range .Fields}}
+        - {{.Name}}
+        {{- end}}
+      {{- else -}}
       {{if gt (len .Fields) 0}}properties:{{else}}type: object{{end}}
         {{range $i, $fields := .Fields -}}
         {{.Name}}:
           type: {{get $type .Type}}
         {{end}}
+      {{end}}
     {{- end -}}
     {{- range .Services}}
     {{- range $i, $method := .Methods}}

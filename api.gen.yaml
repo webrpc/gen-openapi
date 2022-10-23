@@ -4,7 +4,7 @@
 # Do not edit by hand. Update your webrpc schema and re-generate.
 openapi: 3.0.0
 info:
-  title: example API
+  title: ExampleService API
   version: vTODO
 
 components:
@@ -16,15 +16,15 @@ components:
         error:
           type: string
     Kind:
-      properties:
-        USER:
-          type: number
-        ADMIN:
-          type: number
-        
+      type: string
+      description: Represented as uint32 on the server side
+      enum:
+        - USER
+        - ADMIN
     Empty:
       type: object
         
+      
     User:
       properties:
         id:
@@ -34,11 +34,13 @@ components:
         role:
           type: string
         
+      
     SearchFilter:
       properties:
         q:
           type: string
         
+      
     Version:
       properties:
         webrpcVersion:
@@ -48,6 +50,7 @@ components:
         schemaHash:
           type: string
         
+      
     ComplexType:
       properties:
         meta:
@@ -69,6 +72,7 @@ components:
         user:
           type: object
         
+      
     Ping_Request:
       type: object
     Status_Request:
