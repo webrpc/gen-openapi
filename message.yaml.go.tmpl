@@ -21,7 +21,7 @@
       {{- end -}}
       {{- range $i, $fields := .Message.Fields }}
         {{.Name -}}:
-          {{ template "complexType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
+          {{ template "fieldType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
       {{- end -}}
     {{- end -}}
 {{- end -}}

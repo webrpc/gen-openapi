@@ -1,22 +1,22 @@
-{{- define "complexType" -}}
+{{- define "fieldType" -}}
 {{- /* Required args */ -}}
-{{- /* .Type */ -}}
 {{- $indent := .Indent -}}
 {{- $type := .TypeDict -}}
+{{- /* .Type */ -}}
 
 {{- if isMapType .Type -}}
 
 type: object
 {{ $indent }}description: '{{.Type}}'
 {{ $indent }}additionalProperties:
-{{ $indent }}  {{ template "complexType" dict "Type" (mapValueType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
+{{ $indent }}  {{ template "fieldType" dict "Type" (mapValueType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
 
 {{- else if isArrayType .Type -}}
 
 type: array
 {{ $indent }}description: '{{.Type}}'
 {{ $indent }}items:
-{{ $indent }}  {{ template "complexType" dict "Type" (arrayItemType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
+{{ $indent }}  {{ template "fieldType" dict "Type" (arrayItemType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
 {{- else if isBaseType .Type -}}
 
 type: {{ get $type .Type }}

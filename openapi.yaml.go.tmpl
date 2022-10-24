@@ -46,7 +46,7 @@ components:
       {{if gt (len .Inputs) 0}}properties:{{else}}type: object{{end}}
       {{- range $i, $input := .Inputs}}
         {{.Name}}:
-          {{ template "complexType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
+          {{ template "fieldType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
       {{- end -}}
     {{- end -}}
     {{- range $i, $method := .Methods}}
@@ -54,7 +54,7 @@ components:
       {{if gt (len .Outputs) 0}}properties:{{else}}type: object{{end}}
       {{- range $i, $output := .Outputs}}
         {{.Name}}:
-          {{ template "complexType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
+          {{ template "fieldType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
         {{- end -}}
       {{- end -}}
     {{- end -}}
