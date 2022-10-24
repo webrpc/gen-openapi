@@ -46,8 +46,8 @@ components:
       {{if gt (len .Inputs) 0}}properties:{{else}}type: object{{end}}
       {{- range $i, $input := .Inputs}}
         {{.Name}}:
-          type: {{get $type .Type}}
-          description: {{.Type}}
+          type: object
+          description: 'TODO: Copy from responses'
       {{- end -}}
     {{- end -}}
     {{- range $i, $method := .Methods}}
@@ -56,7 +56,9 @@ components:
       {{- range $i, $output := .Outputs}}
         {{.Name}}:
           type: {{get $type .Type}}
-          description: {{.Type}}
+          description: '{{.Type}}'
+          additionalProperties:
+            $ref: '#/components/schemas/{{.Type}}'
         {{- end -}}
       {{- end -}}
     {{- end -}}

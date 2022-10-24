@@ -47,69 +47,75 @@ components:
       type: object
       properties:
         meta:
-          
           type: object
+          description: 'map<string,any>'
           additionalProperties:
             type: object
         metaNestedExample:
-          
           type: object
+          description: 'map<string,map<string,uint32>>'
           additionalProperties:
-            
             type: object
+            description: 'map<string,uint32>'
             additionalProperties:
               type: number
         namesList:
-          
           type: array
+          description: '[]string'
           items:
             type: string
         numsList:
-          
           type: array
+          description: '[]int64'
           items:
             type: number
         doubleArray:
-          
           type: array
+          description: '[][]string'
           items:
-            
             type: array
+            description: '[]string'
             items:
               type: string
         listOfMaps:
-          
           type: array
+          description: '[]map<string,uint32>'
           items:
-            
             type: object
+            description: 'map<string,uint32>'
             additionalProperties:
               type: number
         listOfUsers:
-          
           type: array
+          description: '[]User'
           items:
-            type: <no value>
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/User'
         mapOfUsers:
-          
+          type: object
+          description: 'map<string,User>'
+          additionalProperties:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/User'
+        user:
           type: object
           additionalProperties:
-            type: <no value>
-        user:
-          type: <no value>
+            $ref: '#/components/schemas/User'
     GetUser_Request:
       properties:
         header:
           type: object
-          description: map<string,string>
+          description: 'TODO: Copy from responses'
         userID:
-          type: number
-          description: uint64
+          type: object
+          description: 'TODO: Copy from responses'
     FindUser_Request:
       properties:
         s:
-          type: <no value>
-          description: SearchFilter
+          type: object
+          description: 'TODO: Copy from responses'
     ListUsers_Request:
       type: object
     GetComplex_Request:
@@ -118,28 +124,40 @@ components:
       properties:
         code:
           type: number
-          description: uint32
+          description: 'uint32'
+          additionalProperties:
+            $ref: '#/components/schemas/uint32'
         user:
           type: <no value>
-          description: User
+          description: 'User'
+          additionalProperties:
+            $ref: '#/components/schemas/User'
     FindUser_Response:
       properties:
         name:
           type: string
-          description: string
+          description: 'string'
+          additionalProperties:
+            $ref: '#/components/schemas/string'
         user:
           type: <no value>
-          description: User
+          description: 'User'
+          additionalProperties:
+            $ref: '#/components/schemas/User'
     ListUsers_Response:
       properties:
         users:
           type: array
-          description: []User
+          description: '[]User'
+          additionalProperties:
+            $ref: '#/components/schemas/[]User'
     GetComplex_Response:
       properties:
         complex:
           type: <no value>
-          description: ComplexType
+          description: 'ComplexType'
+          additionalProperties:
+            $ref: '#/components/schemas/ComplexType'
 
 paths:
   /rpc/ExampleService/GetUser:

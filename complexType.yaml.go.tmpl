@@ -3,15 +3,29 @@
 {{- /* .Type */ -}}
 {{- $indent := .Indent -}}
 {{- $type := .TypeDict -}}
-{{- if isMapType .Type }}
-{{ $indent }}type: object
+
+{{- if isMapType .Type -}}
+
+type: object
+{{ $indent }}description: '{{.Type}}'
 {{ $indent }}additionalProperties:
 {{ $indent }}  {{ template "complexType" dict "Type" (mapValueType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
-{{- else if isArrayType .Type }}
-{{ $indent }}type: array
+
+{{- else if isArrayType .Type -}}
+
+type: array
+{{ $indent }}description: '{{.Type}}'
 {{ $indent }}items:
 {{ $indent }}  {{ template "complexType" dict "Type" (arrayItemType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
-{{- else -}}
+{{- else if isBaseType .Type -}}
+
 type: {{ get $type .Type }}
+
+{{- else -}}
+
+type: object
+{{ $indent }}additionalProperties:
+{{ $indent }}  $ref: '#/components/schemas/{{.Type}}'
+
 {{- end -}}
 {{- end -}}
