@@ -107,15 +107,17 @@ components:
       properties:
         header:
           type: object
-          description: 'TODO: Copy from responses'
+          description: 'map<string,string>'
+          additionalProperties:
+            type: string
         userID:
-          type: object
-          description: 'TODO: Copy from responses'
+          type: number
     FindUser_Request:
       properties:
         s:
           type: object
-          description: 'TODO: Copy from responses'
+          additionalProperties:
+            $ref: '#/components/schemas/SearchFilter'
     ListUsers_Request:
       type: object
     GetComplex_Request:
@@ -124,24 +126,16 @@ components:
       properties:
         code:
           type: number
-          description: 'uint32'
-          additionalProperties:
-            $ref: '#/components/schemas/uint32'
         user:
-          type: <no value>
-          description: 'User'
+          type: object
           additionalProperties:
             $ref: '#/components/schemas/User'
     FindUser_Response:
       properties:
         name:
           type: string
-          description: 'string'
-          additionalProperties:
-            $ref: '#/components/schemas/string'
         user:
-          type: <no value>
-          description: 'User'
+          type: object
           additionalProperties:
             $ref: '#/components/schemas/User'
     ListUsers_Response:
@@ -149,13 +143,14 @@ components:
         users:
           type: array
           description: '[]User'
-          additionalProperties:
-            $ref: '#/components/schemas/[]User'
+          items:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/User'
     GetComplex_Response:
       properties:
         complex:
-          type: <no value>
-          description: 'ComplexType'
+          type: object
           additionalProperties:
             $ref: '#/components/schemas/ComplexType'
 
@@ -166,13 +161,7 @@ paths:
         content:
           application/json:
             schema:
-              properties:
-                header:
-                  type: object
-                  description: map<string,string>
-                userID:
-                  type: number
-                  description: uint64
+              $ref: '#/components/schemas/GetUser_Request'
       responses:
         '200':
           description: Success
@@ -180,7 +169,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetUser_Response'
-                description:
         default:
           description: Error
           content:
@@ -193,10 +181,7 @@ paths:
         content:
           application/json:
             schema:
-              properties:
-                s:
-                  type: <no value>
-                  description: SearchFilter
+              $ref: '#/components/schemas/FindUser_Request'
       responses:
         '200':
           description: Success
@@ -204,7 +189,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindUser_Response'
-                description:
         default:
           description: Error
           content:
@@ -217,7 +201,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/empty'
+              $ref: '#/components/schemas/ListUsers_Request'
       responses:
         '200':
           description: Success
@@ -225,7 +209,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListUsers_Response'
-                description:
         default:
           description: Error
           content:
@@ -238,7 +221,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/empty'
+              $ref: '#/components/schemas/GetComplex_Request'
       responses:
         '200':
           description: Success
@@ -246,7 +229,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetComplex_Response'
-                description:
         default:
           description: Error
           content:

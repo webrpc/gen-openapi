@@ -46,8 +46,7 @@ components:
       {{if gt (len .Inputs) 0}}properties:{{else}}type: object{{end}}
       {{- range $i, $input := .Inputs}}
         {{.Name}}:
-          type: object
-          description: 'TODO: Copy from responses'
+          {{ template "complexType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
       {{- end -}}
     {{- end -}}
     {{- range $i, $method := .Methods}}
@@ -55,10 +54,7 @@ components:
       {{if gt (len .Outputs) 0}}properties:{{else}}type: object{{end}}
       {{- range $i, $output := .Outputs}}
         {{.Name}}:
-          type: {{get $type .Type}}
-          description: '{{.Type}}'
-          additionalProperties:
-            $ref: '#/components/schemas/{{.Type}}'
+          {{ template "complexType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
         {{- end -}}
       {{- end -}}
     {{- end -}}
@@ -74,12 +70,7 @@ paths:
         content:
           application/json:
             schema:
-              {{if gt (len .Inputs) 0}}properties:{{else}}$ref: '#/components/schemas/empty'{{- end -}}
-              {{range .Inputs}}
-                {{.Name}}:
-                  type: {{get $type .Type}}
-                  description: {{.Type}}
-              {{- end}}
+              $ref: '#/components/schemas/{{$method.Name}}_Request'
       responses:
         '200':
           description: Success
@@ -87,7 +78,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/{{$method.Name}}_Response'
-                description:
         default:
           description: Error
           content:
