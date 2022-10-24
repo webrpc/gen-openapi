@@ -23,7 +23,7 @@ jobs:
       - name: Install webrpc-gen
         #run: go install github.com/webrpc/webrpc/cmd/gen@${{ matrix.webrpc-gen }}
         run: |
-          git clone --single-branch git@github.com:golang-cz/webrpc.git --branch gen_v2_templates_api
+          git clone --single-branch https://github.com/webrpc/webrpc.git --branch gen_v2_templates_api
           cd webrpc
           make install
       - name: Regenerate example schema
