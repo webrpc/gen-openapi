@@ -1,0 +1,27 @@
+{{- define "message" -}}
+
+{{- /* Required args */}}
+{{- /* .Message */ -}}
+{{- $type := .TypeDict -}}
+
+{{.Message.Name}}:
+    {{- if eq (str .Message.Type) "enum"}}
+      type: string
+      {{if gt (len .Message.Fields) 0 -}}
+      description: Represented as {{(index .Message.Fields 0).Type}} on the server side
+      {{end -}}
+      enum:
+        {{- range .Message.Fields}}
+        - {{.Name}}
+        {{- end -}}
+    {{else if eq (str .Message.Type) "struct"}}
+      type: object
+      {{- if gt (len .Message.Fields) 0}}
+      properties:
+      {{- end -}}
+      {{- range $i, $fields := .Message.Fields }}
+        {{.Name -}}:
+          {{ template "complexType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
+      {{- end -}}
+    {{- end -}}
+{{- end -}}

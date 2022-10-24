@@ -1,0 +1,17 @@
+{{- define "complexType" -}}
+{{- /* Required args */ -}}
+{{- /* .Type */ -}}
+{{- $indent := .Indent -}}
+{{- $type := .TypeDict -}}
+{{- if isMapType .Type }}
+{{ $indent }}type: object
+{{ $indent }}additionalProperties:
+{{ $indent }}  {{ template "complexType" dict "Type" (mapValueType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
+{{- else if isArrayType .Type }}
+{{ $indent }}type: array
+{{ $indent }}items:
+{{ $indent }}  {{ template "complexType" dict "Type" (arrayItemType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
+{{- else -}}
+type: {{ get $type .Type }}
+{{- end -}}
+{{- end -}}
