@@ -13,7 +13,9 @@ webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.6.0 -ou
 ```
 
 ## CLI options
-| CLI option         | Default value              | Possible values            |
+Change any of the following values by passing `-Option="Value"` in the webrpc-gen CLI.
+
+| Option             | Default value              | Example value              |
 |--------------------|----------------------------|----------------------------|
 | -Title             | `{Services[0].Name} API`   | `Example API`              |
 | -Version           | `""`                       | `v22.10.25`                |
