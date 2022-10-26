@@ -9,8 +9,16 @@ make install
 
 ## Generate OpenAPI 3.x documentation
 ```
-webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.1.0 -out openapi.gen.yaml
+webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.6.0 -out openapi.gen.yaml
 ```
+
+## CLI options
+| CLI option         | Default value              | Possible values            |
+|--------------------|----------------------------|----------------------------|
+| -Title             | `{Services[0].Name} API`   | `Example API`              |
+| -Version           | `""`                       | `v22.10.25`                |
+| -ServerUrl         | `""`                       | `https://api.example.com`  |
+| -ServerDescription | `""`                       | `Staging API`              |
 
 ## Open in Swagger UI
 ```

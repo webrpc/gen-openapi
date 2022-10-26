@@ -17,6 +17,7 @@ type: array
 {{ $indent }}description: '{{.Type}}'
 {{ $indent }}items:
 {{ $indent }}  {{ template "fieldType" dict "Type" (arrayItemType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
+
 {{- else if isBaseType .Type -}}
 
 type: {{ get $type .Type }}

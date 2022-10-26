@@ -1,8 +1,8 @@
 {{- define "message" -}}
 
 {{- /* Required args */}}
-{{- /* .Message */ -}}
 {{- $type := .TypeDict -}}
+{{- /* .Message */ -}}
 
 {{.Message.Name}}:
     {{- if eq (str .Message.Type) "enum"}}
