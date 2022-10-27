@@ -2,10 +2,10 @@
 
 {{- /* Options. Default values. */ -}}
 {{- $opts := dict -}}
-{{- set $opts "Title" (first .Opts.Title (print (index .Services 0).Name " API")) -}}
-{{- set $opts "Version" (first .Opts.Version "") -}}
-{{- set $opts "ServerUrl" (first .Opts.ServerUrl "") -}}
-{{- set $opts "ServerDescription" (first .Opts.ServerDescription "") -}}
+{{- set $opts "Title" (coalesce .Opts.Title (print (index .Services 0).Name " API")) -}}
+{{- set $opts "Version" (coalesce .Opts.Version "") -}}
+{{- set $opts "ServerUrl" (coalesce .Opts.ServerUrl "") -}}
+{{- set $opts "ServerDescription" (coalesce .Opts.ServerDescription "") -}}
 
 {{- /* Print help on -Help. */ -}}
 {{- if exists .Opts "Help" -}}
@@ -87,12 +87,11 @@ components:
           {{ template "fieldType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
         {{- end -}}
       {{- end -}}
-    {{- end -}}
-
-{{- range .Services -}}
-{{- $serviceName:=.Name}}
+    {{- end}}
 
 paths:
+{{- range .Services -}}
+{{- $serviceName:=.Name}}
   {{- range $i, $method := .Methods}}
   /rpc/{{$serviceName}}/{{.Name}}:
     post:
