@@ -1,5 +1,10 @@
 {{- define "proto" -}}
 
+{{- if ne .WebrpcVersion "v1" -}}
+	{{- printfStderr "%s generator error: unsupported webrpc version %s\n" .WebrpcTarget .WebrpcVersion -}}
+	{{- exit 1 -}}
+{{- end -}}
+
 {{- /* Options. Default values. */ -}}
 {{- $opts := dict -}}
 {{- set $opts "Title" (coalesce .Opts.Title (print (index .Services 0).Name " API")) -}}
