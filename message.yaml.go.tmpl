@@ -1,7 +1,7 @@
 {{- define "message" -}}
 
 {{- /* Required args */}}
-{{- $type := .TypeDict -}}
+{{- $typeMap := .TypeMap -}}
 {{- /* .Message */ -}}
 
 {{.Message.Name}}:
@@ -21,7 +21,7 @@
       {{- end -}}
       {{- range $i, $fields := .Message.Fields }}
         {{.Name -}}:
-          {{ template "fieldType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
+          {{ template "fieldType" dict "Type" .Type "TypeMap" $typeMap "Indent" "          " }}
       {{- end -}}
     {{- end -}}
 {{- end -}}

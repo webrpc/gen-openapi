@@ -1,7 +1,7 @@
 {{- define "fieldType" -}}
 {{- /* Required args */ -}}
 {{- $indent := .Indent -}}
-{{- $type := .TypeDict -}}
+{{- $typeMap := .TypeMap -}}
 {{- /* .Type */ -}}
 
 {{- if isMapType .Type -}}
@@ -9,18 +9,18 @@
 type: object
 {{ $indent }}description: '{{.Type}}'
 {{ $indent }}additionalProperties:
-{{ $indent }}  {{ template "fieldType" dict "Type" (mapValueType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
+{{ $indent }}  {{ template "fieldType" dict "Type" (mapValueType .Type) "TypeMap" $typeMap "Indent" (print $indent "  ") }}
 
 {{- else if isArrayType .Type -}}
 
 type: array
 {{ $indent }}description: '{{.Type}}'
 {{ $indent }}items:
-{{ $indent }}  {{ template "fieldType" dict "Type" (arrayItemType .Type) "TypeDict" $type "Indent" (print $indent "  ") }}
+{{ $indent }}  {{ template "fieldType" dict "Type" (arrayItemType .Type) "TypeMap" $typeMap "Indent" (print $indent "  ") }}
 
 {{- else if isBaseType .Type -}}
 
-type: {{ get $type .Type }}
+type: {{ get $typeMap .Type }}
 
 {{- else -}}
 

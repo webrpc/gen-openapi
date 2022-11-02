@@ -5,7 +5,7 @@
 	{{- exit 1 -}}
 {{- end -}}
 
-{{- /* Options. Default values. */ -}}
+{{- /* Options with default values. */ -}}
 {{- $opts := dict -}}
 {{- set $opts "Title" (coalesce .Opts.Title (print (index .Services 0).Name " API")) -}}
 {{- set $opts "Version" (coalesce .Opts.Version "") -}}
@@ -28,27 +28,27 @@
 {{- end -}}
 
 {{- /* Type mapping. */ -}}
-{{- $type := dict }}
-{{- set $type "null" "null" -}}
-{{- set $type "any" "object" -}}
-{{- set $type "byte" "string" -}}
-{{- set $type "bool" "boolean" -}}
-{{- set $type "uint" "number" -}}
-{{- set $type "uint8" "number" -}}
-{{- set $type "uint16" "number" -}}
-{{- set $type "uint32" "number" -}}
-{{- set $type "uint64" "number" -}}
-{{- set $type "int" "number" -}}
-{{- set $type "int8" "number" -}}
-{{- set $type "int16" "number" -}}
-{{- set $type "int32" "number" -}}
-{{- set $type "int64" "number" -}}
-{{- set $type "float32" "number" -}}
-{{- set $type "float64" "number" -}}
-{{- set $type "string" "string" -}}
-{{- set $type "timestamp" "string" -}}
-{{- set $type "map" "object" -}}
-{{- set $type "[]" "array" -}}
+{{- $typeMap := dict }}
+{{- set $typeMap "null" "null" -}}
+{{- set $typeMap "any" "object" -}}
+{{- set $typeMap "byte" "string" -}}
+{{- set $typeMap "bool" "boolean" -}}
+{{- set $typeMap "uint" "number" -}}
+{{- set $typeMap "uint8" "number" -}}
+{{- set $typeMap "uint16" "number" -}}
+{{- set $typeMap "uint32" "number" -}}
+{{- set $typeMap "uint64" "number" -}}
+{{- set $typeMap "int" "number" -}}
+{{- set $typeMap "int8" "number" -}}
+{{- set $typeMap "int16" "number" -}}
+{{- set $typeMap "int32" "number" -}}
+{{- set $typeMap "int64" "number" -}}
+{{- set $typeMap "float32" "number" -}}
+{{- set $typeMap "float64" "number" -}}
+{{- set $typeMap "string" "string" -}}
+{{- set $typeMap "timestamp" "string" -}}
+{{- set $typeMap "map" "object" -}}
+{{- set $typeMap "[]" "array" -}}
 
 # {{.SchemaName}} {{.SchemaVersion}} {{.SchemaHash}}
 # --
@@ -73,7 +73,7 @@ components:
         error:
           type: string
     {{- range $i, $msg := .Messages}}
-    {{template "message" dict "Message" $msg "TypeDict" $type }}
+    {{template "message" dict "Message" $msg "TypeMap" $typeMap }}
     {{- end -}}
     {{- range .Services}}
     {{- range $i, $method := .Methods}}
@@ -81,7 +81,7 @@ components:
       {{if gt (len .Inputs) 0}}properties:{{else}}type: object{{end}}
       {{- range $i, $input := .Inputs}}
         {{.Name}}:
-          {{ template "fieldType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
+          {{ template "fieldType" dict "Type" .Type "TypeMap" $typeMap "Indent" "          " }}
       {{- end -}}
     {{- end -}}
     {{- range $i, $method := .Methods}}
@@ -89,7 +89,7 @@ components:
       {{if gt (len .Outputs) 0}}properties:{{else}}type: object{{end}}
       {{- range $i, $output := .Outputs}}
         {{.Name}}:
-          {{ template "fieldType" dict "Type" .Type "TypeDict" $type "Indent" "          " }}
+          {{ template "fieldType" dict "Type" .Type "TypeMap" $typeMap "Indent" "          " }}
         {{- end -}}
       {{- end -}}
     {{- end}}
