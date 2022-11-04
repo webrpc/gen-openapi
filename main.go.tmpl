@@ -12,10 +12,10 @@
 
 {{- /* Options with default values. */ -}}
 {{- $opts := dict -}}
-{{- set $opts "Title" (coalesce .Opts.Title (print (index .Services 0).Name " API")) -}}
-{{- set $opts "Version" (coalesce .Opts.Version "") -}}
-{{- set $opts "ServerUrl" (coalesce .Opts.ServerUrl "") -}}
-{{- set $opts "ServerDescription" (coalesce .Opts.ServerDescription "") -}}
+{{- set $opts "Title" (default .Opts.Title (print (index .Services 0).Name " API")) -}}
+{{- set $opts "Version" (default .Opts.Version "") -}}
+{{- set $opts "ServerUrl" (default .Opts.ServerUrl "") -}}
+{{- set $opts "ServerDescription" (default .Opts.ServerDescription "") -}}
 
 {{- /* Print help on -Help. */ -}}
 {{- if exists .Opts "Help" -}}

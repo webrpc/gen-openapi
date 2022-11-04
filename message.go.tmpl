@@ -5,7 +5,7 @@
 {{- /* .Message */ -}}
 
 {{.Message.Name}}:
-    {{- if eq (str .Message.Type) "enum"}}
+    {{- if eq (printf "%s" .Message.Type) "enum"}}
       type: string
       {{if gt (len .Message.Fields) 0 -}}
       description: Represented as {{(index .Message.Fields 0).Type}} on the server side
@@ -14,7 +14,7 @@
         {{- range .Message.Fields}}
         - {{.Name}}
         {{- end -}}
-    {{else if eq (str .Message.Type) "struct"}}
+    {{else if eq (printf "%s" .Message.Type) "struct"}}
       type: object
       {{- if gt (len .Message.Fields) 0}}
       properties:
