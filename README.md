@@ -46,4 +46,4 @@ http://localhost:8088
 - [Vojtech Vitek](https://github.com/VojtechVitek)
 
 # License
-[MIT](./LICENSE)
+[MIT LICENSE](./LICENSE)
