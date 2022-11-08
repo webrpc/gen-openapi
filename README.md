@@ -1,30 +1,23 @@
 # webrpc OpenAPI 3.x (Swagger) generator
 
-## Install webrpc-gen (v0.7.0 development branch)
-```
-git clone --single-branch git@github.com:golang-cz/webrpc.git --branch templates_v0.7.0
-cd webrpc
-make install
-```
-
 ## Generate OpenAPI 3.x YAML file
 ```
-webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.6.0 -out openapi.gen.yaml
+webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.7.0 -out openapi.gen.yaml
 ```
 
 ### Set custom template variables
-Change any of the following default values by passing `-Option="Value"` CLI flag to webrpc-gen.
+Change any of the following default values by passing `-option="Value"` CLI flag to webrpc-gen.
 
-| Option               | Default value              | Example value              |
+| webrpc-gen -option   | Default value              | Example value              |
 |----------------------|----------------------------|----------------------------|
-| `-Title`             | `{Services[0].Name} API`   | `"Example API"`              |
-| `-Version`           | `""`                       | `v22.10.25`                |
-| `-ServerUrl`         | `""`                       | `https://api.example.com`  |
-| `-ServerDescription` | `""`                       | `"Staging API"`              |
+| `-title`             | `{Services[0].Name} API`   | `"Example API"`              |
+| `-version`           | `""`                       | `v22.10.25`                |
+| `-serverUrl`         | `""`                       | `https://api.example.com`  |
+| `-serverDescription` | `""`                       | `"Staging API"`              |
 
 Example:
 ```
-webrpc-gen -schema=./proto.json -target=github.com/webrpc/gen-openapi@v0.6.0 -out openapi.gen.yaml -Title="My Own Title"
+webrpc-gen -schema=./proto.json -target=github.com/webrpc/gen-openapi@v0.7.0 -out openapi.gen.yaml -title="Example webrpc API" -apiVersion="v22.11.8" -serverUrl=https://api.example.com -serverDescription="Production"
 ```
 
 ## Open documentation in Swagger UI
