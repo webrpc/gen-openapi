@@ -34,6 +34,21 @@ docker run -p 8088:8080 -v $(pwd):/tmp -e SWAGGER_FILE=/tmp/openapi.gen.yaml swa
 
 http://localhost:8088
 
+## Build static html page 
+- Use [Redocly](https://redocly.com/docs/redoc/deployment/cli/) tool. There are multiple ways how to use it. 
+It can be installed as cli tool via `npx`, `yarn` or `npm` and it can be also used as [Docker image](https://hub.docker.com/r/redocly/redoc/).
+- The look and feel of static page can be customized through theming options: https://redocly.com/docs/api-reference-docs/configuration/theming/.
+
+### Build static html file with cli
+```
+redoc-cli build openapi.gen.yaml
+```
+
+### Build static html file with docker
+```
+docker run --rm -v $(pwd):/api --workdir /api ghcr.io/redocly/redoc/cli build openapi.gen.yaml
+```
+
 # Authors
 - [golang.cz](https://www.golang.cz)
 - [Vojtech Vitek](https://github.com/VojtechVitek)
