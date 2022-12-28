@@ -1,32 +1,27 @@
-{{- define "fieldType" -}}
+{{- define "type" -}}
 
-{{- $type := .Type -}}
+{{- /* Required args */}}
 {{- $typeMap := .TypeMap -}}
-{{- $indent := .Indent -}}
+{{- $type := .Type -}}
 
-{{- if isMapType .Type -}}
-
-type: object
-{{ $indent }}description: '{{$type}}'
-{{ $indent }}additionalProperties:
-{{ $indent }}  {{ template "fieldType" dict "Type" (mapValueType $type) "TypeMap" $typeMap "Indent" (print $indent "  ") }}
-
-{{- else if isListType $type -}}
-
-type: array
-{{ $indent }}description: '{{$type}}'
-{{ $indent }}items:
-{{ $indent }}  {{ template "fieldType" dict "Type" (listElemType $type) "TypeMap" $typeMap "Indent" (print $indent "  ") }}
-
-{{- else if isStructType $type -}}
-
-type: object
-{{ $indent }}additionalProperties:
-{{ $indent }}  $ref: '#/components/schemas/{{$type}}'
-
-{{- else -}}
-
-type: {{ get $typeMap $type }}
-
-{{- end -}}
+{{$type.Name}}:
+    {{- if isEnumType $type}}
+      type: string
+      {{if gt (len $type.Fields) 0 -}}
+      description: Represented as {{$type.Type}} on the server side
+      {{end -}}
+      enum:
+        {{- range $type.Fields}}
+        - {{.Name}}
+        {{- end -}}
+    {{else}}
+      type: object
+      {{- if gt (len $type.Fields) 0}}
+      properties:
+      {{- end -}}
+      {{- range $i, $fields := $type.Fields }}
+        {{.Name -}}:
+          {{ template "fieldType" dict "Type" .Type "TypeMap" $typeMap "Indent" "          " }}
+      {{- end -}}
+    {{- end -}}
 {{- end -}}
