@@ -67,7 +67,7 @@ openapi: 3.0.0
 info:
   title: '{{ get $opts "title" }}'
   version: '{{ get $opts "apiVersion" }}'
-{{ if or (exists $opts "serverUrl") (exists $opts "serverDescription") -}}
+{{ if or (ne (get $opts "serverUrl") "") (ne (get $opts "serverDescription") "") -}}
 servers:
   - url: '{{ get $opts "serverUrl" }}'
     description: '{{ get $opts "serverDescription" }}'
