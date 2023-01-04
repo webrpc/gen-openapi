@@ -1,11 +1,20 @@
-# webrpc OpenAPI 3.x (Swagger) generator
+# webrpc OpenAPI 3.x (Swagger) generator  <!-- omit in toc -->
 
-## Generate OpenAPI 3.x YAML file
+This repo contains the templates used by the [webrpc-gen](https://github.com/webrpc/webrpc) cli to code-generate OpenAPI documentation from webrpc schema.
+
+- [Generate OpenAPI 3.x YAML file](#generate-openapi-3x-yaml-file)
+  - [Set custom template variables](#set-custom-template-variables)
+- [Open in Swagger UI](#open-in-swagger-ui)
+- [Build static HTML documentation](#build-static-html-documentation)
+- [Authors](#authors)
+- [License](#license)
+
+# Generate OpenAPI 3.x YAML file
 ```
-webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.7.0 -out openapi.gen.yaml
+webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.7.0 -out petstore.gen.yaml
 ```
 
-### Set custom template variables
+## Set custom template variables
 Change any of the following default values by passing `-option="Value"` CLI flag to webrpc-gen.
 
 | webrpc-gen -option   | Default value              | Example value              |
@@ -17,36 +26,31 @@ Change any of the following default values by passing `-option="Value"` CLI flag
 
 Example:
 ```
-webrpc-gen -schema=./proto.json -target=github.com/webrpc/gen-openapi@v0.7.0 -out openapi.gen.yaml -title="Example webrpc API" -apiVersion="v22.11.8" -serverUrl=https://api.example.com -serverDescription="Production"
+webrpc-gen -schema=./petstore.ridl -target=github.com/webrpc/gen-openapi@v0.7.0 -out petstore.gen.yaml -title="Example webrpc API" -apiVersion="v22.11.8" -serverUrl=https://api.example.com -serverDescription="Production"
 ```
 
-## Open documentation in Swagger UI
-```
-docker run -p 8088:8080 -v $(pwd):/tmp -e SWAGGER_JSON=/tmp/openapi.gen.yaml swaggerapi/swagger-ui
-```
+# Open in Swagger UI
 
-http://localhost:8088
-
-### Open documentation in Swagger editor
+Open generated documentation in Swagger editor:
 ```
-docker run -p 8088:8080 -v $(pwd):/tmp -e SWAGGER_FILE=/tmp/openapi.gen.yaml swaggerapi/swagger-editor
+docker run -p 8088:8080 -v $(pwd):/app -e SWAGGER_JSON=/app/petstore.gen.yaml swaggerapi/swagger-ui
 ```
 
-http://localhost:8088
+Or in Swagger editor:
+```
+docker run -p 8088:8080 -v $(pwd):/app -e SWAGGER_FILE=/app/petstore.gen.yaml swaggerapi/swagger-editor
+```
 
-## Build static html page 
+And go to http://localhost:8088
+
+# Build static HTML documentation
 - Use [Redocly](https://redocly.com/docs/redoc/deployment/cli/) tool. There are multiple ways how to use it. 
 It can be installed as cli tool via `npx`, `yarn` or `npm` and it can be also used as [Docker image](https://hub.docker.com/r/redocly/redoc/).
 - The look and feel of static page can be customized through theming options: https://redocly.com/docs/api-reference-docs/configuration/theming/.
 
-### Build static html file with cli
+Example:
 ```
-redoc-cli build openapi.gen.yaml
-```
-
-### Build static html file with docker
-```
-docker run --rm -v $(pwd):/api --workdir /api ghcr.io/redocly/redoc/cli build openapi.gen.yaml
+docker run --rm -v $(pwd):/app -w /app ghcr.io/redocly/redoc/cli build petstore.gen.yaml
 ```
 
 # Authors
