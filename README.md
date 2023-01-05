@@ -13,7 +13,12 @@ This repo contains the templates used by the [webrpc-gen](https://github.com/web
 - [License](#license)
 
 # Generate OpenAPI 3.x YAML file
+```bash
+webrpc-gen -schema=./proto.ridl -target=openapi -out petstore.gen.yaml
 ```
+
+or
+```bash
 webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.7.0 -out petstore.gen.yaml
 ```
 
