@@ -57,6 +57,8 @@
 
 {{- $types := .Types -}}
 {{- $services := .Services -}}
+{{- $webrpcErrors := .WebrpcErrors -}}
+{{- $schemaErrors := .Errors -}}
 
 # {{.SchemaName}} {{.SchemaVersion}} {{.SchemaHash}}
 # --
@@ -74,31 +76,12 @@ servers:
 {{ end -}}
 components:
   schemas:
-    empty:
-      type: object
-    error:
-      type: object
-      required:
-        - error
-        - code
-        - msg
-        - status
-      properties:
-        error:
-          type: string
-          example: "WebrpcBadRequest"
-        code:
-          type: number
-          example: -4
-        msg:
-          type: string
-          example: "bad request"
-        cause:
-          type: string
-          example: "error validating input object"
-        status:
-          type: number
-          example: 400
+    {{- range $_, $error := $webrpcErrors }}
+    {{ template "errorType" $error }}
+    {{- end -}}
+    {{- range $_, $error := $schemaErrors }}
+    {{ template "errorType" $error }}
+    {{- end -}}
     {{- range $_, $type := $types }}
     {{template "type" dict "Type" $type "TypeMap" $typeMap }}
     {{- end -}}
@@ -140,12 +123,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/{{$method.Name}}_Response'
-        default:
+        '4xx/5xx':
           description: Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                oneOf:
+                {{- range $_, $error := $webrpcErrors }}
+                - $ref: '#/components/schemas/Error{{$error.Name}}'
+                {{- end -}}
+                {{- range $_, $error := $schemaErrors }}
+                - $ref: '#/components/schemas/Error{{$error.Name}}'
+                {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- end -}}

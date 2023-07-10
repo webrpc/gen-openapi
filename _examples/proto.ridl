@@ -39,9 +39,11 @@ struct ComplexType
   - mapOfUsers: map<string,User>
   - user: User
 
-
 service ExampleService
   - GetUser(header: map<string,string>, userID: uint64) => (code: uint32, user: User)
   - FindUser(s: SearchFilter) => (name: string, user: User)
   - ListUsers() => (users: []User)
   - GetComplex() => (complex: ComplexType)
+
+error 100 RateLimited     "too many requests"   HTTP 429
+error 101 DatabaseDown    "service outage"      HTTP 503
