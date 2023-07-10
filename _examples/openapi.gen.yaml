@@ -314,10 +314,8 @@ components:
           $ref: '#/components/schemas/SearchFilter'
     ListUsers_Request:
       type: object
-      properties:
     GetComplex_Request:
       type: object
-      properties:
     GetUser_Response:
       type: object
       properties:
