@@ -86,7 +86,8 @@ components:
     {{- range $_, $service := $services}}
     {{- range $i, $method := $service.Methods}}
     {{$method.Name}}_Request:
-      {{if gt (len .Inputs) 0}}properties:{{else}}type: object{{end}}
+      type: object
+      properties:
       {{- range $_, $input := $method.Inputs}}
         {{$input.Name}}:
           {{ template "fieldType" dict "Type" $input.Type "TypeMap" $typeMap "Indent" "          " }}
@@ -94,7 +95,8 @@ components:
     {{- end -}}
     {{- range $_, $method := .Methods}}
     {{$method.Name}}_Response:
-      {{if gt (len $method.Outputs) 0}}properties:{{else}}type: object{{end}}
+      type: object
+      properties:
       {{- range $_, $output := .Outputs}}
         {{$output.Name}}:
           {{ template "fieldType" dict "Type" $output.Type "TypeMap" $typeMap "Indent" "          " }}
