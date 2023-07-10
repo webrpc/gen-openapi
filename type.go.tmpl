@@ -17,11 +17,17 @@
     {{else}}
       type: object
       {{- if gt (len $type.Fields) 0}}
+      required:
+      {{- range $i, $field := $type.Fields -}}
+        {{- if not $field.Optional }}
+        - {{$field.Name}}
+        {{- end -}}
+      {{- end }}
       properties:
       {{- end -}}
-      {{- range $i, $fields := $type.Fields }}
-        {{.Name -}}:
-          {{ template "fieldType" dict "Type" .Type "TypeMap" $typeMap "Indent" "          " }}
+      {{- range $i, $field := $type.Fields }}
+        {{$field.Name -}}:
+          {{ template "fieldType" dict "Type" $field.Type "TypeMap" $typeMap "Indent" "          " }}
       {{- end -}}
     {{- end -}}
 {{- end -}}

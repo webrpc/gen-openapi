@@ -22,6 +22,7 @@ struct User
 
 struct SearchFilter
   - q: string
+  - active?: bool
 
 struct Version
   - webrpcVersion: string
