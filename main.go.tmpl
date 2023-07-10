@@ -118,23 +118,43 @@ paths:
               $ref: '#/components/schemas/{{$method.Name}}_Request'
       responses:
         '200':
-          description: Success
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/{{$method.Name}}_Response'
-        '4xx/5xx':
-          description: Error
+        '4XX':
+          description: Client error
           content:
             application/json:
               schema:
                 oneOf:
                 {{- range $_, $error := $webrpcErrors }}
+                {{- if and (ge $error.HTTPStatus 400) (le $error.HTTPStatus 499) }}
                 - $ref: '#/components/schemas/Error{{$error.Name}}'
+                {{- end}}
                 {{- end -}}
                 {{- range $_, $error := $schemaErrors }}
+                {{- if and (ge $error.HTTPStatus 400) (le $error.HTTPStatus 499) }}
                 - $ref: '#/components/schemas/Error{{$error.Name}}'
                 {{- end -}}
+                {{- end }}
+        '5XX':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                {{- range $_, $error := $webrpcErrors }}
+                {{- if and (ge $error.HTTPStatus 500) (le $error.HTTPStatus 599) }}
+                - $ref: '#/components/schemas/Error{{$error.Name}}'
+                {{- end}}
+                {{- end -}}
+                {{- range $_, $error := $schemaErrors }}
+                {{- if and (ge $error.HTTPStatus 500) (le $error.HTTPStatus 599) }}
+                - $ref: '#/components/schemas/Error{{$error.Name}}'
+                {{- end -}}
+                {{- end }}
   {{- end -}}
 {{- end -}}
 {{- end -}}
