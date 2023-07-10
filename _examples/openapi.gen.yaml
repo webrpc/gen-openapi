@@ -360,25 +360,30 @@ paths:
               $ref: '#/components/schemas/GetUser_Request'
       responses:
         '200':
-          description: Success
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetUser_Response'
-        '4xx/5xx':
-          description: Error
+        '4XX':
+          description: Client error
           content:
             application/json:
               schema:
                 oneOf:
                 - $ref: '#/components/schemas/ErrorWebrpcEndpoint'
-                - $ref: '#/components/schemas/ErrorWebrpcRequestFailed'
                 - $ref: '#/components/schemas/ErrorWebrpcBadRoute'
                 - $ref: '#/components/schemas/ErrorWebrpcBadMethod'
                 - $ref: '#/components/schemas/ErrorWebrpcBadRequest'
+                - $ref: '#/components/schemas/ErrorRateLimited'
+        '5XX':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                oneOf:
                 - $ref: '#/components/schemas/ErrorWebrpcBadResponse'
                 - $ref: '#/components/schemas/ErrorWebrpcServerPanic'
-                - $ref: '#/components/schemas/ErrorRateLimited'
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/FindUser:
     post:
@@ -389,25 +394,30 @@ paths:
               $ref: '#/components/schemas/FindUser_Request'
       responses:
         '200':
-          description: Success
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/FindUser_Response'
-        '4xx/5xx':
-          description: Error
+        '4XX':
+          description: Client error
           content:
             application/json:
               schema:
                 oneOf:
                 - $ref: '#/components/schemas/ErrorWebrpcEndpoint'
-                - $ref: '#/components/schemas/ErrorWebrpcRequestFailed'
                 - $ref: '#/components/schemas/ErrorWebrpcBadRoute'
                 - $ref: '#/components/schemas/ErrorWebrpcBadMethod'
                 - $ref: '#/components/schemas/ErrorWebrpcBadRequest'
+                - $ref: '#/components/schemas/ErrorRateLimited'
+        '5XX':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                oneOf:
                 - $ref: '#/components/schemas/ErrorWebrpcBadResponse'
                 - $ref: '#/components/schemas/ErrorWebrpcServerPanic'
-                - $ref: '#/components/schemas/ErrorRateLimited'
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/ListUsers:
     post:
@@ -418,25 +428,30 @@ paths:
               $ref: '#/components/schemas/ListUsers_Request'
       responses:
         '200':
-          description: Success
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListUsers_Response'
-        '4xx/5xx':
-          description: Error
+        '4XX':
+          description: Client error
           content:
             application/json:
               schema:
                 oneOf:
                 - $ref: '#/components/schemas/ErrorWebrpcEndpoint'
-                - $ref: '#/components/schemas/ErrorWebrpcRequestFailed'
                 - $ref: '#/components/schemas/ErrorWebrpcBadRoute'
                 - $ref: '#/components/schemas/ErrorWebrpcBadMethod'
                 - $ref: '#/components/schemas/ErrorWebrpcBadRequest'
+                - $ref: '#/components/schemas/ErrorRateLimited'
+        '5XX':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                oneOf:
                 - $ref: '#/components/schemas/ErrorWebrpcBadResponse'
                 - $ref: '#/components/schemas/ErrorWebrpcServerPanic'
-                - $ref: '#/components/schemas/ErrorRateLimited'
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetComplex:
     post:
@@ -447,23 +462,28 @@ paths:
               $ref: '#/components/schemas/GetComplex_Request'
       responses:
         '200':
-          description: Success
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetComplex_Response'
-        '4xx/5xx':
-          description: Error
+        '4XX':
+          description: Client error
           content:
             application/json:
               schema:
                 oneOf:
                 - $ref: '#/components/schemas/ErrorWebrpcEndpoint'
-                - $ref: '#/components/schemas/ErrorWebrpcRequestFailed'
                 - $ref: '#/components/schemas/ErrorWebrpcBadRoute'
                 - $ref: '#/components/schemas/ErrorWebrpcBadMethod'
                 - $ref: '#/components/schemas/ErrorWebrpcBadRequest'
+                - $ref: '#/components/schemas/ErrorRateLimited'
+        '5XX':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                oneOf:
                 - $ref: '#/components/schemas/ErrorWebrpcBadResponse'
                 - $ref: '#/components/schemas/ErrorWebrpcServerPanic'
-                - $ref: '#/components/schemas/ErrorRateLimited'
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
