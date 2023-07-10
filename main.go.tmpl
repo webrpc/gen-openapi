@@ -77,9 +77,28 @@ components:
     empty:
       type: object
     error:
+      type: object
+      required:
+        - error
+        - code
+        - msg
+        - status
       properties:
         error:
           type: string
+          example: "WebrpcBadRequest"
+        code:
+          type: number
+          example: -4
+        msg:
+          type: string
+          example: "bad request"
+        cause:
+          type: string
+          example: "error validating input object"
+        status:
+          type: number
+          example: 400
     {{- range $_, $type := $types }}
     {{template "type" dict "Type" $type "TypeMap" $typeMap }}
     {{- end -}}
