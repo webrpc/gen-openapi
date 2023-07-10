@@ -94,20 +94,18 @@ components:
           description: '[]User'
           items:
             type: object
-            additionalProperties:
-              $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/User'
         mapOfUsers:
           type: object
           description: 'map<string,User>'
           additionalProperties:
             type: object
-            additionalProperties:
-              $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/User'
         user:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/User'
+          $ref: '#/components/schemas/User'
     GetUser_Request:
+      type: object
       properties:
         header:
           type: object
@@ -117,46 +115,48 @@ components:
         userID:
           type: number
     FindUser_Request:
+      type: object
       properties:
         s:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/SearchFilter'
+          $ref: '#/components/schemas/SearchFilter'
     ListUsers_Request:
       type: object
+      properties:
     GetComplex_Request:
       type: object
+      properties:
     GetUser_Response:
+      type: object
       properties:
         code:
           type: number
         user:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/User'
+          $ref: '#/components/schemas/User'
     FindUser_Response:
+      type: object
       properties:
         name:
           type: string
         user:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/User'
+          $ref: '#/components/schemas/User'
     ListUsers_Response:
+      type: object
       properties:
         users:
           type: array
           description: '[]User'
           items:
             type: object
-            additionalProperties:
-              $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/User'
     GetComplex_Response:
+      type: object
       properties:
         complex:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ComplexType'
+          $ref: '#/components/schemas/ComplexType'
 
 paths:
   /rpc/ExampleService/GetUser:
