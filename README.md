@@ -28,7 +28,7 @@ Change any of the following default values by passing `-option="Value"` CLI flag
 | webrpc-gen -option   | Default value              | Example value              |
 |----------------------|----------------------------|----------------------------|
 | `-title`             | `{Services[0].Name} API`   | `"Example API"`              |
-| `-version`           | `""`                       | `v22.10.25`                |
+| `-apiVersion`        | `""`                       | `v22.10.25`                |
 | `-serverUrl`         | `""`                       | `https://api.example.com`  |
 | `-serverDescription` | `""`                       | `"Staging API"`              |
 
