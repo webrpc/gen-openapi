@@ -46,5 +46,8 @@ service ExampleService
   - ListUsers() => (users: []User)
   - GetComplex() => (complex: ComplexType)
 
+service ClonedService
+  - ListUsers() => (users: []User)
+
 error 100 RateLimited     "too many requests"   HTTP 429
 error 101 DatabaseDown    "service outage"      HTTP 503
