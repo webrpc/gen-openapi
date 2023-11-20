@@ -24,7 +24,7 @@ type: {{ get $typeMap $type }}
 
 {{- else -}}
 
-{{ $indent }}$ref: '#/components/schemas/{{$type}}'
+$ref: '#/components/schemas/{{$type}}'
 
 {{- end -}}
 {{- end -}}
