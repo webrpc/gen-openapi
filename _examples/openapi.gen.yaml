@@ -329,14 +329,14 @@ components:
           type: array
           description: '[]User'
           items:
-                        $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/User'
         mapOfUsers:
           type: object
           description: 'map<string,User>'
           additionalProperties:
-                        $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/User'
         user:
-                    $ref: '#/components/schemas/User'
+          $ref: '#/components/schemas/User'
     ExampleService_GetUser_Request:
       type: object
       properties:
@@ -351,7 +351,7 @@ components:
       type: object
       properties:
         s:
-                    $ref: '#/components/schemas/SearchFilter'
+          $ref: '#/components/schemas/SearchFilter'
     ExampleService_ListUsers_Request:
       type: object
     ExampleService_GetComplex_Request:
@@ -362,14 +362,14 @@ components:
         code:
           type: number
         user:
-                    $ref: '#/components/schemas/User'
+          $ref: '#/components/schemas/User'
     ExampleService_FindUser_Response:
       type: object
       properties:
         name:
           type: string
         user:
-                    $ref: '#/components/schemas/User'
+          $ref: '#/components/schemas/User'
     ExampleService_ListUsers_Response:
       type: object
       properties:
@@ -377,12 +377,12 @@ components:
           type: array
           description: '[]User'
           items:
-                        $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/User'
     ExampleService_GetComplex_Response:
       type: object
       properties:
         complex:
-                    $ref: '#/components/schemas/ComplexType'
+          $ref: '#/components/schemas/ComplexType'
     ClonedService_ListUsers_Request:
       type: object
     ClonedService_ListUsers_Response:
@@ -392,7 +392,7 @@ components:
           type: array
           description: '[]User'
           items:
-                        $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/User'
 
 paths:
   /rpc/ExampleService/GetUser:
