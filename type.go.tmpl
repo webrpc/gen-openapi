@@ -17,11 +17,11 @@
     {{else}}
       type: object
       {{- if gt (len $type.Fields) 0}}
+      {{- if gt (len $type.RequiredFields) 0}}
       required:
-      {{- range $i, $field := $type.Fields -}}
-        {{- if not $field.Optional }}
+      {{- range $i, $field := $type.RequiredFields }}
         - {{$field.Name}}
-        {{- end -}}
+      {{- end }}
       {{- end }}
       properties:
       {{- end -}}
