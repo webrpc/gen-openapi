@@ -6,6 +6,7 @@
 {{- set $opts "apiVersion" (default .Opts.apiVersion "") -}}
 {{- set $opts "serverUrl" (default .Opts.serverUrl "") -}}
 {{- set $opts "serverDescription" (default .Opts.serverDescription "") -}}
+{{- set $opts "servers" (default .Opts.servers "") -}}
 
 {{- /* Print help on -help. */ -}}
 {{- if exists .Opts "help" -}}
@@ -69,11 +70,23 @@ openapi: 3.0.0
 info:
   title: '{{ get $opts "title" }}'
   version: '{{ get $opts "apiVersion" }}'
+{{ $serversInput := get $opts "servers" -}}
 {{ if or (ne (get $opts "serverUrl") "") (ne (get $opts "serverDescription") "") -}}
-servers:
-  - url: '{{ get $opts "serverUrl" }}'
-    description: '{{ get $opts "serverDescription" }}'
+  {{ if eq $serversInput "" -}}
+    {{- $serversInput = (printf "%s;%s" (get $opts "serverUrl") (get $opts "serverDescription")) -}}
+  {{ else }}
+    {{- $serversInput = (printf "%s,%s;%s" $serversInput (get $opts "serverUrl") (get $opts "serverDescription")) -}}
+  {{ end -}}
 {{ end -}}
+{{ if ne $serversInput "" -}}
+servers:
+{{- $servers := split "," $serversInput -}}
+{{- range $index, $server := $servers -}}
+  {{- $pairs := split ";" $server }}
+  - url: '{{ index $pairs 0 }}'
+    description: '{{ index $pairs 1 }}'
+{{- end }}
+{{- end }}
 components:
   schemas:
     {{- range $_, $error := $webrpcErrors }}
