@@ -40,11 +40,16 @@ struct ComplexType
   - mapOfUsers: map<string,User>
   - user: User
 
+struct Optional
+    - name?: string
+    - email?: string
+
 service ExampleService
   - GetUser(header: map<string,string>, userID: uint64) => (code: uint32, user: User)
   - FindUser(s: SearchFilter) => (name: string, user: User)
   - ListUsers() => (users: []User)
   - GetComplex() => (complex: ComplexType)
+  - GetAllOptional() => (optional: Optional)
 
 service ClonedService
   - ListUsers() => (users: []User)
