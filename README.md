@@ -25,16 +25,27 @@ webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.7.0 -ou
 ## Set custom template variables
 Change any of the following default values by passing `-option="Value"` CLI flag to webrpc-gen.
 
-| webrpc-gen -option   | Default value              | Example value              |
-|----------------------|----------------------------|----------------------------|
-| `-title`             | `{Services[0].Name} API`   | `"Example API"`              |
-| `-apiVersion`        | `""`                       | `v22.10.25`                |
-| `-serverUrl`         | `""`                       | `https://api.example.com`  |
-| `-serverDescription` | `""`                       | `"Staging API"`              |
+| webrpc-gen -option   | Default value              | Example value                                                          |
+|----------------------|----------------------------|------------------------------------------------------------------------|
+| `-title`             | `{Services[0].Name} API`   | `"Example API"`                                                        |
+| `-apiVersion`        | `""`                       | `v22.10.25`                                                            |
+| `-serverUrl`         | `""`                       | `https://api.example.com`                                              |
+| `-serverDescription` | `""`                       | `"Staging API"`                                                        |
+| `-servers`           | `""`                       | `http://localhost:8080;description,http://localhost:8081;description`  |
 
 Example:
+- server url and server description will become part of the servers format in the end to keeep it backward compatible
+- means that the result will be `server="http://localhost:8080;description,http://localhost:8081;description,https://api.example.com;Production"`
 ```
-webrpc-gen -schema=./petstore.ridl -target=github.com/webrpc/gen-openapi@v0.7.0 -out petstore.gen.yaml -title="Example webrpc API" -apiVersion="v22.11.8" -serverUrl=https://api.example.com -serverDescription="Production"
+webrpc-gen \ 
+  -schema=./petstore.ridl \ 
+  -target=github.com/webrpc/gen-openapi@v0.7.0 \ 
+  -out petstore.gen.yaml \ 
+  -title="Example webrpc API" \ 
+  -apiVersion="v22.11.8" \ 
+  -serverUrl=https://api.example.com \ 
+  -serverDescription="Production"
+  -servers="http://localhost:8080;description,http://localhost:8081;description"
 ```
 
 # Open in Swagger UI
