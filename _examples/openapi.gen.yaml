@@ -477,6 +477,7 @@ components:
 paths:
   /rpc/ExampleService/GetUser:
     post:
+      summary: GetUser
       requestBody:
         content:
           application/json:
@@ -515,6 +516,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/FindUser:
     post:
+      summary: FindUser
       requestBody:
         content:
           application/json:
@@ -553,6 +555,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/ListUsers:
     post:
+      summary: ListUsers
       requestBody:
         content:
           application/json:
@@ -591,6 +594,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetComplex:
     post:
+      summary: GetComplex
       requestBody:
         content:
           application/json:
@@ -629,6 +633,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetAllOptional:
     post:
+      summary: GetAllOptional
       requestBody:
         content:
           application/json:
@@ -667,6 +672,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ClonedService/ListUsers:
     post:
+      summary: ListUsers
       requestBody:
         content:
           application/json:

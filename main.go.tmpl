@@ -128,8 +128,9 @@ paths:
   {{- range $_, $method := .Methods}}
   /rpc/{{$service.Name}}/{{$method.Name}}:
     post:
+      summary: {{$method.Name}}
     {{- if gt (len $method.Comments) 0 }}
-      summary: "{{ replaceAll (join $method.Comments "\n") "\"" "'" }}"
+      description: "{{ replaceAll (join $method.Comments "\n") "\"" "'" }}"
     {{- end }}
       requestBody:
         content:
