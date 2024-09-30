@@ -129,7 +129,10 @@ paths:
   /rpc/{{$service.Name}}/{{$method.Name}}:
     post:
       summary: {{$method.Name}}
-    {{- if gt (len $method.Comments) 0 }}
+      {{- if (index $method.Annotations "deprecated") }}
+      deprecated: true
+      {{- end }}
+      {{- if gt (len $method.Comments) 0 }}
       description: "{{ replaceAll (join $method.Comments "\n") "\"" "'" }}"
     {{- end }}
       requestBody:
