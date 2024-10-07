@@ -47,6 +47,7 @@ struct Optional
 service ExampleService
   @deprecated:GetUserV2
   - GetUser(header: map<string,string>, userID: uint64) => (code: uint32, user: User)
+  @auth:"ApiKeyAuth,ServiceAuth"
   - GetUserV2(header: map<string,string>, userID: uint64) => (code: uint32, user: User, profilePicture: string)
   - FindUser(s: SearchFilter) => (name: string, user: User)
   - ListUsers() => (users: []User)
