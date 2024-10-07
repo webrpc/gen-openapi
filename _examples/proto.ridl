@@ -45,7 +45,9 @@ struct Optional
     - email?: string
 
 service ExampleService
+  @deprecated:GetUserV2
   - GetUser(header: map<string,string>, userID: uint64) => (code: uint32, user: User)
+  - GetUserV2(header: map<string,string>, userID: uint64) => (code: uint32, user: User, profilePicture: string)
   - FindUser(s: SearchFilter) => (name: string, user: User)
   - ListUsers() => (users: []User)
   - GetComplex() => (complex: ComplexType)
