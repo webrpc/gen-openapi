@@ -7,13 +7,13 @@ generate:
               'ApiKeyAuth': { \
                 'type': 'apiKey', \
                 'in': 'header', \
-                'description': 'Project access key for authenticating requests, get an access key at https://sequence.build', \
+                'description': 'Project access key for authenticating requests', \
                 'name': 'X-Access-Key' \
               }, \
               'ServiceAuth': { \
                 'type': 'apiKey', \
                 'in': 'header', \
-                'description': 'Project access key for authenticating requests, get an access key at https://sequence.build', \
+                'description': 'Project access key for authenticating requests', \
                 'name': 'X-Access-Key' \
               } \
             }"; \

@@ -37,7 +37,7 @@ Change any of the following default values by passing `-option="Value"` CLI flag
 
 
 Example:
-- server url and server description will become part of the servers format in the end to keeep it backward compatible
+- server url and server description will become part of the servers format in the end to keep it backward compatible
 - means that the result will be `server="http://localhost:8080;description,http://localhost:8081;description,https://api.example.com;Production"`
 ```
 webrpc-gen \ 
@@ -49,6 +49,36 @@ webrpc-gen \
   -serverUrl=https://api.example.com \ 
   -serverDescription="Production"
   -servers="http://localhost:8080;description,http://localhost:8081;description"
+```
+
+- `securityAnnotation` must match the custom annotation you are using in your project to describe ACL for specific service methods
+- `securitySchemes` give you possibility to pass an openapi security schemes which are later matched by your custom `acl annotation`. In this example it's an `@auth` annotation. 
+Example with security annotation:
+```
+// proto.ridl
+service ExampleService
+  @auth:"ApiKeyAuth,ServiceAuth"
+  - GetUserV2(header: map<string,string>, userID: uint64) => (profilePicture: string)
+
+// Makefile
+SECURITY_SCHEMES="{ \
+  'ApiKeyAuth': { \
+    'type': 'apiKey', \
+    'in': 'header', \
+    'description': 'Project access key for authenticating requests', \
+    'name': 'X-Access-Key' \
+  }, \
+}"; \
+webrpc-gen \
+  -schema=./proto.ridl \
+  -target=./ \
+  -out=./openapi.gen.yaml \
+  -title="Example webrpc API" \
+  -apiVersion="v22.11.8"  \
+  -serverUrl=https://api.example.com \
+  -serverDescription="Production" \
+  -securityAnnotation="@auth" \
+  -securitySchemes="$$SECURITY_SCHEMES"
 ```
 
 # Open in Swagger UI
