@@ -25,13 +25,16 @@ webrpc-gen -schema=./proto.ridl -target=github.com/webrpc/gen-openapi@v0.7.0 -ou
 ## Set custom template variables
 Change any of the following default values by passing `-option="Value"` CLI flag to webrpc-gen.
 
-| webrpc-gen -option   | Default value              | Example value                                                          |
-|----------------------|----------------------------|------------------------------------------------------------------------|
-| `-title`             | `{Services[0].Name} API`   | `"Example API"`                                                        |
-| `-apiVersion`        | `""`                       | `v22.10.25`                                                            |
-| `-serverUrl`         | `""`                       | `https://api.example.com`                                              |
-| `-serverDescription` | `""`                       | `"Staging API"`                                                        |
-| `-servers`           | `""`                       | `http://localhost:8080;description,http://localhost:8081;description`  |
+| webrpc-gen -option     | Default value            | Example value                                                                                                                        |
+|------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| `-title`               | `{Services[0].Name} API` | `"Example API"`                                                                                                                      |
+| `-apiVersion`          | `""`                     | `v22.10.25`                                                                                                                          |
+| `-serverUrl`           | `""`                     | `https://api.example.com`                                                                                                            |
+| `-serverDescription`   | `""`                     | `"Staging API"`                                                                                                                      |
+| `-servers`             | `""`                     | `http://localhost:8080;description,http://localhost:8081;description`                                                                |
+| `-securityAnnotation`  | `""`                     | `@auth`                                                                                                                              |
+| `-securitySchemes`     | `""`                     | `{"ApiKeyAuth":{"type":"apiKey", "in":"header", "description":"Access key for authenticating requests", "name":"X-Access-Key"}}`     | 
+
 
 Example:
 - server url and server description will become part of the servers format in the end to keeep it backward compatible

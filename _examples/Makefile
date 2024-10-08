@@ -29,4 +29,4 @@ generate:
 		-securitySchemes="$$SECURITY_SCHEMES"
 
 diff:
-	git diff --color --ignor1e-all-space --ignore-blank-lines --exit-code .
+	git diff --color --ignore-all-space --ignore-blank-lines --exit-code .
