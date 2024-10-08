@@ -7,6 +7,8 @@
 {{- set $opts "serverUrl" (default .Opts.serverUrl "") -}}
 {{- set $opts "serverDescription" (default .Opts.serverDescription "") -}}
 {{- set $opts "servers" (default .Opts.servers "") -}}
+{{- set $opts "securityAnnotation" (default .Opts.securityAnnotation "") -}}
+{{- set $opts "securitySchemes" (default .Opts.securitySchemes "") -}}
 
 {{- /* Print help on -help. */ -}}
 {{- if exists .Opts "help" -}}
@@ -88,6 +90,9 @@ servers:
 {{- end }}
 {{- end }}
 components:
+  {{- if (ne (get $opts "securitySchemes") "") }}
+  securitySchemes: {{ get $opts "securitySchemes" }}
+  {{- end }}
   schemas:
     {{- range $_, $error := $webrpcErrors }}
     {{ template "errorType" $error }}
@@ -131,6 +136,17 @@ paths:
       summary: {{$method.Name}}
       {{- if (index $method.Annotations "deprecated") }}
       deprecated: true
+      {{- end }}
+      {{- if (index $opts "securityAnnotation") }}
+      {{- $annotation := trimPrefix (get $opts "securityAnnotation") "@" -}}
+      {{- if (index $method.Annotations $annotation) }}
+      security:
+        {{- $auth := index $method.Annotations $annotation -}}
+        {{- $authParts := split "," $auth.Value -}}
+        {{- range $authParts }}
+          - {{ . }}: []
+        {{- end }}
+      {{- end }}
       {{- end }}
       {{- if gt (len $method.Comments) 0 }}
       description: "{{ replaceAll (join $method.Comments "\n") "\"" "'" }}"
