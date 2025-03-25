@@ -1,6 +1,10 @@
 .PHONY: all generate diff
 
-all: generate diff
+all:
+	@echo "make <cmd>:"
+	@echo ""
+	@echo "commands:"
+	@awk -F'[ :]' '/^#+/ {comment=$$0; gsub(/^#+[ ]*/, "", comment)} !/^(_|all:)/ && /^([A-Za-z_-]+):/ && !seen[$$1]++ {printf "  %-24s %s\n", $$1, (comment ? "- " comment : ""); comment=""} !/^#+/ {comment=""}' Makefile
 
 generate:
 	SECURITY_SCHEMES="{ \
@@ -30,3 +34,7 @@ generate:
 
 diff:
 	git diff --color --ignore-all-space --ignore-blank-lines --exit-code .
+
+swagger:
+	echo "http://localhost:8088"
+	docker run -p 8088:8080 -v $$(pwd):/docs -e SWAGGER_JSON=/docs/openapi.gen.yaml swaggerapi/swagger-ui
