@@ -41,20 +41,38 @@ struct ComplexType
   - user: User
 
 struct Optional
-    - name?: string
-    - email?: string
+  - name?: string
+  - email?: string
 
 service ExampleService
-  @deprecated:GetUserV2
+  @deprecated
+  - Ping()
+  
+  @deprecated:"Use GetUserV2 instead."
+  @auth:JWT
   - GetUser(header: map<string,string>, userID: uint64) => (code: uint32, user: User)
-  @auth:"ApiKeyAuth,ServiceAuth"
+ 
+  # GetUserV2 returns user based on given userID.
+  #
+  # Replaces GetUser endpoint.
+  @auth:JWT
   - GetUserV2(header: map<string,string>, userID: uint64) => (code: uint32, user: User, profilePicture: string)
+
+  # FindUser searches for a user using the given search filter.
+  #
+  # The filters are q (string) and active (bool).
+  @auth:JWT
   - FindUser(s: SearchFilter) => (name: string, user: User)
+
+  # ListUsers returns all users.
+  @auth:JWT
   - ListUsers() => (users: []User)
-  - GetComplex() => (complex: ComplexType)
+
+  - GetComplex() => (complex: ComplexType)  
   - GetAllOptional() => (optional: Optional)
 
-service ClonedService
+service AdminService
+  @auth:JWT
   - ListUsers() => (users: []User)
 
 error 100 RateLimited     "too many requests"   HTTP 429
