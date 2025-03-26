@@ -501,6 +501,7 @@ components:
 paths:
   /rpc/ExampleService/Ping:
     post:
+      tags: ["ExampleService"]
       summary: "Deprecated."
       deprecated: true
       requestBody:
@@ -541,6 +542,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetUser:
     post:
+      tags: ["ExampleService"]
       summary: "Deprecated: Use GetUserV2 instead."
       deprecated: true
       security:
@@ -583,6 +585,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetUserV2:
     post:
+      tags: ["ExampleService"]
       summary: "GetUserV2 returns user based on given userID."
       security:
           - JWT: []
@@ -626,6 +629,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/FindUser:
     post:
+      tags: ["ExampleService"]
       summary: "FindUser searches for a user using the given search filter."
       security:
           - JWT: []
@@ -672,6 +676,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/ListUsers:
     post:
+      tags: ["ExampleService"]
       summary: "ListUsers returns all users."
       security:
           - JWT: []
@@ -713,6 +718,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetComplex:
     post:
+      tags: ["ExampleService"]
       summary: ""
       requestBody:
         content:
@@ -752,6 +758,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetAllOptional:
     post:
+      tags: ["ExampleService"]
       summary: ""
       requestBody:
         content:
@@ -791,6 +798,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/AdminService/ListUsers:
     post:
+      tags: ["AdminService"]
       summary: ""
       security:
           - JWT: []
