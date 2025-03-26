@@ -36,5 +36,5 @@ diff:
 	git diff --color --ignore-all-space --ignore-blank-lines --exit-code .
 
 swagger:
-	echo "http://localhost:8088"
+	@echo "Swagger UI is available at http://localhost:8088"
 	docker run -p 8088:8080 -v $$(pwd):/docs -e SWAGGER_JSON=/docs/openapi.gen.yaml swaggerapi/swagger-ui
