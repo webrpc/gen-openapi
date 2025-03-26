@@ -134,7 +134,7 @@ paths:
   {{- $deprecated := index $method.Annotations "deprecated" }}
   /rpc/{{$service.Name}}/{{$method.Name}}:
     post:
-      summary: "{{ if $deprecated }}{{ if $deprecated.Value }}Deprecated: {{$deprecated.Value}}{{else}}Deprecated.{{end}}{{else if gt (len $method.Comments) 0}}{{index $method.Comments 0}}{{end}}"
+      summary: {{ if $deprecated }}{{ if $deprecated.Value }}{{printf "%q" (print "Deprecated: " $deprecated.Value)}}{{else}}"Deprecated."{{end}}{{else if gt (len $method.Comments) 0}}{{printf "%q" (index $method.Comments 0)}}{{else}}""{{end}}
       {{- if $deprecated }}
       deprecated: true
       {{- end }}
@@ -151,10 +151,8 @@ paths:
       {{- end }}
       {{- if gt (len $method.Comments) 1 }}
       description: |
-        {{- range $i, $comment := $method.Comments }}
-        {{- if gt $i 0 }}
+        {{- range $i, $comment := (slice $method.Comments 1) }}
         {{$comment}}
-        {{- end }}
         {{- end }}
       {{- end }}
       requestBody:
