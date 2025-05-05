@@ -134,7 +134,7 @@ paths:
   {{- $deprecated := index $method.Annotations "deprecated" }}
   /rpc/{{$service.Name}}/{{$method.Name}}:
     post:
-      operationId: {{$service.Name}}{{$method.Name}}
+      operationId: {{$service.Name}}-{{$method.Name}}
       tags: ["{{$service.Name}}"]
       summary: {{ if $deprecated }}{{ if $deprecated.Value }}{{printf "%q" (print "Deprecated: " $deprecated.Value)}}{{else}}"Deprecated."{{end}}{{else if gt (len $method.Comments) 0}}{{printf "%q" (index $method.Comments 0)}}{{else}}""{{end}}
       {{- if $deprecated }}
