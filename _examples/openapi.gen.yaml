@@ -501,6 +501,7 @@ components:
 paths:
   /rpc/ExampleService/Ping:
     post:
+      operationId: ExampleServicePing
       tags: ["ExampleService"]
       summary: "Deprecated."
       deprecated: true
@@ -542,6 +543,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetUser:
     post:
+      operationId: ExampleServiceGetUser
       tags: ["ExampleService"]
       summary: "Deprecated: Use GetUserV2 instead."
       deprecated: true
@@ -585,6 +587,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetUserV2:
     post:
+      operationId: ExampleServiceGetUserV2
       tags: ["ExampleService"]
       summary: "GetUserV2 returns user based on given userID."
       security:
@@ -629,6 +632,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/FindUser:
     post:
+      operationId: ExampleServiceFindUser
       tags: ["ExampleService"]
       summary: "FindUser searches for a user using the given search filter."
       security:
@@ -676,6 +680,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/ListUsers:
     post:
+      operationId: ExampleServiceListUsers
       tags: ["ExampleService"]
       summary: "ListUsers returns all users."
       security:
@@ -718,6 +723,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetComplex:
     post:
+      operationId: ExampleServiceGetComplex
       tags: ["ExampleService"]
       summary: ""
       requestBody:
@@ -758,6 +764,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/ExampleService/GetAllOptional:
     post:
+      operationId: ExampleServiceGetAllOptional
       tags: ["ExampleService"]
       summary: ""
       requestBody:
@@ -798,6 +805,7 @@ paths:
                 - $ref: '#/components/schemas/ErrorDatabaseDown'
   /rpc/AdminService/ListUsers:
     post:
+      operationId: AdminServiceListUsers
       tags: ["AdminService"]
       summary: ""
       security:
