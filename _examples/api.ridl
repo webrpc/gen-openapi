@@ -31,6 +31,28 @@ service ExampleService
   - GetComplex() => (complex: ComplexType)
   - GetAllOptional() => (optional: Optional)
 
+  - StreamUserNotifications() => stream (StreamNotificationsResponse)
+
+service ExampleService2
+    @deprecated
+  - Ping()
+
+    # GetUserV2 returns user based on given userID.
+    @auth:JWT
+  - GetUserV2(GetUserRequest) => (GetUserResponse)
+
+    # FindUser searches for a user using the given search filter.
+    #
+    # The filters are q (string) and active (bool).
+    #
+    # The minimal length of the "q" filter is 3 characters.
+    @auth:JWT
+  - FindUser(FindUserRequest) => (FindUserResponse)
+
+    # ListUsers returns all users.
+    @auth:JWT
+  - ListUsers(ListUsersRequest) => (ListUsersResponse)
+
   - StreamUserNotifications(StreamNotificationsRequest) => stream (StreamNotificationsResponse)
 
 service AdminService
@@ -90,3 +112,25 @@ struct StreamNotificationsResponse
 struct Notification
   - message: string
   - timestamp: timestamp
+
+struct GetUserRequest
+  - header: map<string,string>
+  - userID: uint64
+
+struct GetUserResponse
+  - code: uint32
+  - user: User
+
+struct FindUserRequest
+  - s: SearchFilter
+
+struct FindUserResponse
+  - name: string
+  - user: User
+
+struct ListUsersRequest
+  - header: map<string,string>
+
+struct ListUsersResponse
+  - users: []User
+
