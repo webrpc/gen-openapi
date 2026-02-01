@@ -22,7 +22,7 @@ generate:
               } \
             }"; \
 	webrpc-gen \
-		-schema=./proto.ridl \
+		-schema=./api.ridl \
 		-target=../ \
 		-out=./openapi.gen.yaml \
 		-title="Example webrpc API" \
@@ -37,4 +37,4 @@ diff:
 
 swagger:
 	@echo "Swagger UI is available at http://localhost:8088"
-	docker run -p 8088:8080 -v $$(pwd):/docs -e SWAGGER_JSON=/docs/openapi.gen.yaml swaggerapi/swagger-ui
+	docker run -p 8088:8080 -v $$(pwd):/docs -e SWAGGER_JSON=/docs/openapi.gen.yaml swaggerapi/swagger-ui:v5.31.0
