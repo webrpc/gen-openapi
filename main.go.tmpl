@@ -106,6 +106,8 @@ components:
     {{- end -}}
     {{- range $_, $service := $services}}
     {{- range $i, $method := $service.Methods}}
+    {{- $isSuccinctInput := and $method.Succinct (eq (len $method.Inputs) 1) -}}
+    {{- if not $isSuccinctInput }}
     {{$service.Name}}_{{$method.Name}}_Request:
       type: object
       {{- if gt (len $method.Inputs) 0 }}
@@ -116,7 +118,10 @@ components:
         {{- end -}}
       {{- end -}}
     {{- end -}}
+    {{- end -}}
     {{- range $_, $method := .Methods}}
+    {{- $isSuccinctOutput := and $method.Succinct (eq (len $method.Outputs) 1) -}}
+    {{- if not $isSuccinctOutput }}
     {{$service.Name}}_{{$method.Name}}_Response:
       type: object
       {{- if gt (len $method.Outputs) 0 }}
@@ -127,11 +132,14 @@ components:
         {{- end -}}
         {{- end -}}
       {{- end -}}
+    {{- end -}}
     {{- end}}
 
 paths:
 {{- range $_, $service := .Services -}}
   {{- range $_, $method := .Methods}}
+  {{- $isSuccinctInput := and $method.Succinct (eq (len $method.Inputs) 1) -}}
+  {{- $isSuccinctOutput := and $method.Succinct (eq (len $method.Outputs) 1) -}}
   {{- $deprecated := index $method.Annotations "deprecated" }}
   /rpc/{{$service.Name}}/{{$method.Name}}:
     post:
@@ -162,7 +170,11 @@ paths:
         content:
           application/json:
             schema:
+              {{- if $isSuccinctInput }}
+              {{ template "fieldType" dict "Type" (index $method.Inputs 0).Type "TypeMap" $typeMap "Indent" "              " }}
+              {{- else }}
               $ref: '#/components/schemas/{{$service.Name}}_{{$method.Name}}_Request'
+              {{- end }}
       responses:
         '200':
           description: OK
@@ -170,11 +182,19 @@ paths:
             {{- if eq $method.StreamOutput false }}
             application/json:
               schema:
+                {{- if $isSuccinctOutput }}
+                {{ template "fieldType" dict "Type" (index $method.Outputs 0).Type "TypeMap" $typeMap "Indent" "                " }}
+                {{- else }}
                 $ref: '#/components/schemas/{{$service.Name}}_{{$method.Name}}_Response'
+                {{- end }}
             {{- else }}
             application/x-ndjson:
               schema:
+                {{- if $isSuccinctOutput }}
+                {{ template "fieldType" dict "Type" (index $method.Outputs 0).Type "TypeMap" $typeMap "Indent" "                " }}
+                {{- else }}
                 $ref: '#/components/schemas/{{$service.Name}}_{{$method.Name}}_Response'
+                {{- end }}
               # OpenAPI 3.2.0 streaming (itemSchema) is not supported by 3.1.0 tooling:
               # itemSchema:
               #   $ref: '#/components/schemas/{{$service.Name}}_{{$method.Name}}_Response'
