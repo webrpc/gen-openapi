@@ -1,8 +1,8 @@
-# webrpc OpenAPI 3.x (Swagger) generator  <!-- omit in toc -->
+# webrpc OpenAPI 3.2.0 (Swagger) generator  <!-- omit in toc -->
 
 This repo contains the templates used by the [webrpc-gen](https://github.com/webrpc/webrpc) cli to code-generate OpenAPI documentation from webrpc schema.
 
-- [Generate OpenAPI 3.x YAML file](#generate-openapi-3x-yaml-file)
+- [Generate OpenAPI 3.2.0 YAML file](#generate-openapi-320-yaml-file)
   - [Set custom template variables](#set-custom-template-variables)
 - [Open in Swagger UI](#open-in-swagger-ui)
 - [Build static HTML documentation with Redocly](#build-static-html-documentation-with-redocly)
@@ -12,7 +12,7 @@ This repo contains the templates used by the [webrpc-gen](https://github.com/web
 - [Authors](#authors)
 - [License](#license)
 
-# Generate OpenAPI 3.x YAML file
+# Generate OpenAPI 3.2.0 YAML file
 ```bash
 webrpc-gen -schema=./proto.ridl -target=openapi -out petstore.gen.yaml
 ```
