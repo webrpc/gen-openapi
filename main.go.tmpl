@@ -106,7 +106,7 @@ components:
     {{- end -}}
     {{- range $_, $service := $services}}
     {{- range $i, $method := $service.Methods}}
-    {{- $isSuccinctInput := and $method.Succinct (eq (len $method.Inputs) 1) -}}
+    {{- $isSuccinctInput := $method.Succinct -}}
     {{- if not $isSuccinctInput }}
     {{$service.Name}}_{{$method.Name}}_Request:
       type: object
@@ -120,7 +120,7 @@ components:
     {{- end -}}
     {{- end -}}
     {{- range $_, $method := .Methods}}
-    {{- $isSuccinctOutput := and $method.Succinct (eq (len $method.Outputs) 1) -}}
+    {{- $isSuccinctOutput := $method.Succinct -}}
     {{- if not $isSuccinctOutput }}
     {{$service.Name}}_{{$method.Name}}_Response:
       type: object
@@ -138,8 +138,8 @@ components:
 paths:
 {{- range $_, $service := .Services -}}
   {{- range $_, $method := .Methods}}
-  {{- $isSuccinctInput := and $method.Succinct (eq (len $method.Inputs) 1) -}}
-  {{- $isSuccinctOutput := and $method.Succinct (eq (len $method.Outputs) 1) -}}
+  {{- $isSuccinctInput := $method.Succinct -}}
+  {{- $isSuccinctOutput := $method.Succinct -}}
   {{- $deprecated := index $method.Annotations "deprecated" }}
   /rpc/{{$service.Name}}/{{$method.Name}}:
     post:
@@ -170,8 +170,10 @@ paths:
         content:
           application/json:
             schema:
-              {{- if $isSuccinctInput }}
+              {{- if and $isSuccinctInput (eq (len $method.Inputs) 1) }}
               {{ template "fieldType" dict "Type" (index $method.Inputs 0).Type "TypeMap" $typeMap "Indent" "              " }}
+              {{- else if $isSuccinctInput }}
+              type: object
               {{- else }}
               $ref: '#/components/schemas/{{$service.Name}}_{{$method.Name}}_Request'
               {{- end }}
@@ -182,16 +184,20 @@ paths:
             {{- if eq $method.StreamOutput false }}
             application/json:
               schema:
-                {{- if $isSuccinctOutput }}
+                {{- if and $isSuccinctOutput (eq (len $method.Outputs) 1) }}
                 {{ template "fieldType" dict "Type" (index $method.Outputs 0).Type "TypeMap" $typeMap "Indent" "                " }}
+                {{- else if $isSuccinctOutput }}
+                type: object
                 {{- else }}
                 $ref: '#/components/schemas/{{$service.Name}}_{{$method.Name}}_Response'
                 {{- end }}
             {{- else }}
             application/x-ndjson:
               schema:
-                {{- if $isSuccinctOutput }}
+                {{- if and $isSuccinctOutput (eq (len $method.Outputs) 1) }}
                 {{ template "fieldType" dict "Type" (index $method.Outputs 0).Type "TypeMap" $typeMap "Indent" "                " }}
+                {{- else if $isSuccinctOutput }}
+                type: object
                 {{- else }}
                 $ref: '#/components/schemas/{{$service.Name}}_{{$method.Name}}_Response'
                 {{- end }}
