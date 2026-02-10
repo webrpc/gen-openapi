@@ -60,6 +60,7 @@
 {{- set $typeMap "[]" "array" -}}
 
 {{- $types := .Types -}}
+{{- $basepath := .BasePath -}}
 {{- $services := .Services -}}
 {{- $webrpcErrors := .WebrpcErrors -}}
 {{- $schemaErrors := .Errors -}}
@@ -141,7 +142,7 @@ paths:
   {{- $isSuccinctInput := $method.Succinct -}}
   {{- $isSuccinctOutput := $method.Succinct -}}
   {{- $deprecated := index $method.Annotations "deprecated" }}
-  /rpc/{{$service.Name}}/{{$method.Name}}:
+  {{$basepath}}{{$service.Name}}/{{$method.Name}}:
     post:
       operationId: {{$service.Name}}-{{$method.Name}}
       tags: ["{{$service.Name}}"]

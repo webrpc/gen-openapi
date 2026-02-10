@@ -1,7 +1,8 @@
 webrpc = v1 # version of webrpc schema format (ridl or json)
 
-name = example # name of your backend app
-version = v0.0.1 # version of your schema
+name = example   # name of your backend app
+version = v1.0.0 # version of your schema
+basepath = /v1   # base path for the API routes
 
 service ExampleService
     @deprecated
