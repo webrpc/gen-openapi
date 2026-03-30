@@ -32,8 +32,6 @@ service ExampleService
   - GetComplex() => (complex: ComplexType)
   - GetAllOptional() => (optional: Optional)
 
-  - StreamUserNotifications() => stream (StreamNotificationsResponse)
-
 service ExampleService2
     @deprecated
   - Ping()
@@ -63,6 +61,9 @@ service AdminService
 error 100 RateLimited  "too many requests" HTTP 429
 error 101 DatabaseDown "service outage"    HTTP 503
 
+
+type Username: string
+type Age: uint32
 
 enum Kind: uint32
   - USER
