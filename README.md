@@ -1,3 +1,11 @@
+## ⚠️ Archived
+
+This repo is now archived and has been merged directly into the upstream webrpc repo.
+
+See: https://github.com/webrpc/webrpc/tree/master/gen/openapi
+
+---
+
 # webrpc OpenAPI 3.0.0 (Swagger) generator  <!-- omit in toc -->
 
 This repo contains the templates used by the [webrpc-gen](https://github.com/webrpc/webrpc) cli to code-generate OpenAPI documentation from webrpc schema.
